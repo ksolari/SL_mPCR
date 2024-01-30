@@ -1,0 +1,16 @@
+###map and index each sample
+bwa mem -t 4 ../snowleopard-111120.FINAL.DC2.leoY.fasta sample1_R1_001.fastq.gz sample1_R2_001.fastq.gz | samtools view -bS - | samtools sort - > sample1_sorted.bam
+
+samtools index sample1_sorted.bam
+
+###call SNPs
+ls *_sorted.bam > SortedBamList.txt
+
+bcftools mpileup -A -a AD,DP -R 144SNPs_3bp_FINAL_noheader.bed -f ../../snowleopard-111120.FINAL.DC2.leoY.fasta -b SortedBamList_returns.txt  | bcftools call -m -Oz -o AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_144FinalOnly3bp.vcf
+
+####filter to only 144 target SNPs
+vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_144FinalOnly3bp.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_144FinalOnly1bp --bed 144SNPs_1bp_FINAL.bed --recode
+
+###filter based on read depth
+vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_144FinalOnly1bp_rename.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_144FinalOnly1bp_rename_minDP6 --minDP  6 --recode
+
