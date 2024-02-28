@@ -1,0 +1,31 @@
+###remove adapters
+./cutadapt_SL_lastSet.sh
+
+###pair reads
+./pear_SL_lastSet.sh
+
+###concatenate all data
+./cat.sh
+
+##identify chimeras
+vsearch --uchime3_denovo SL_mimam_ALL_CATout_trimmed.fastq --nonchimeras SL_mimam_ALL_CATout_trimmed_noChimeras.fastq
+
+##dereplicate
+vsearch --derep_fulllength SL_mimam_ALL_CATout_trimmed_noChimeras.fastq --output SL_mimam_ALL_CATout_trimmed_noChimeras_derep.fasta --sizeout --relabel uniq
+
+##cluster OTUs
+vsearch --cluster_size SL_mimam_ALL_CATout_trimmed_noChimeras_derep.fasta --id 0.97 --centroids SL_mimam_ALL_CATout_trimmed_noChimeras_derep_Greedy97_output.fasta --sizein --relabel otu --uc SL_mimam_ALL_CATout_trimmed_noChimeras_derep_Greedy97_output.uc
+
+##Count how many reads in each sample map to each OTU
+vsearch --search_exact SL_mimam_ALL_CATout_trimmed_noChimeras.fasta -db SL_mimam_ALL_CATout_trimmed_noChimeras_derep_Greedy97_output.fasta -otutabout SL_mimam_ALL_output.tsv
+
+##compare sequences to the nt database using blastn to identify matching sequences with a percent identify cut off of 93%
+module load biology ncbi-blast+
+blastn -db ../FecalMetabarcoding/NCBI_nt_DB/nt -query SL_mimam_ALL_CATout_trimmed_noChimeras_derep_Greedy97_output.fasta -perc_identity 93 -max_target_seqs 25 -outfmt '7 qseqid qlen glen sseqid sacc evalue length pident staxid ssciname scomname' -out SL_mimam_ALL_Greedy97_BlastNToutput.out
+
+##add taxon information using edirect
+conda activate edirect
+grep -v '^#' SL_mimam_ALL_Greedy97_BlastNToutput.out > SL_mimam_ALL_Greedy97_BlastNToutput_no_header.out
+python  MakeEdirect.py < SL_mimam_ALL_Greedy97_BlastNToutput_no_header.out > SL_mimam_ALL_Greedy97_BlastNToutput_no_header_Edirect.sh
+chmod 711 SL_mimam_ALL_Greedy97_BlastNToutput_no_header_Edirect.sh
+./SL_mimam_ALL_Greedy97_BlastNToutput_no_header_Edirect.sh > SL_mimam_ALL_Greedy97_BlastNToutput_no_header_EdirectOutput.txt
