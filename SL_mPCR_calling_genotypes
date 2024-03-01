@@ -4,8 +4,14 @@ ml biology samtools
 bwa mem -t 4 ../snowleopard-111120.FINAL.DC2.leoY.fasta sample1_R1_001.fastq.gz sample1_R2_001.fastq.gz | samtools view -bS - | samtools sort - > sample1_sorted.bam
 samtools index sample1_sorted.bam
 
+###calculate number of reads
+samtools flagstat sample1_sorted.bam
+
 ###Filter reads with Mappging Quality of 0
 samtools view -h -q 1 sample1_sorted.bam -o sample1_sorted_MQ1.bam
+
+###calculate number of reads after filtering based on mapping quality
+samtools flagstat sample1_sorted_MQ1.bam
 
 ###call SNPs in target SNP location and the bas pair before and after
 ls *_MQ1.bam > SortedMq1BamList.txt
