@@ -9,9 +9,16 @@ samtools flagstat sample1_sorted.bam
 
 ###Filter reads with Mappging Quality of 0
 samtools view -h -q 1 sample1_sorted.bam -o sample1_sorted_MQ1.bam
+samtools index sample1_sorted_MQ1.bam
 
 ###calculate number of reads after filtering based on mapping quality
 samtools flagstat sample1_sorted_MQ1.bam
+
+###Filter bam to only include the target amplicon regions
+bedtools intersect -a sample1_sorted_MQ1.bam -b FullAmplicon_50bpEachSide_144SNPs.bed > sample1_sorted_MQ1_AmpliconOnly.bam
+
+###Calculate the number of reads MQ1_AmpliconOnly bams:
+samtools flagstat sample1_sorted_MQ1_AmpliconOnly.bam
 
 ###call SNPs in target SNP location and the bas pair before and after
 ls *_MQ1.bam > SortedMq1BamList.txt
@@ -22,3 +29,4 @@ vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_MQ1_144FinalOnly3
 
 ###filter based on read depth
 vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_MQ1_144FinalOnly1bp_rename.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_MQ1_144FinalOnly1bp_rename_minDP6 --minDP  6 --recode
+
