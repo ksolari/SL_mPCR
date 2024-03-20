@@ -14,6 +14,9 @@ samtools index sample1_sorted_MQ1.bam
 ###calculate number of reads after filtering based on mapping quality
 samtools flagstat sample1_sorted_MQ1.bam
 
+###calculate the read depth for each SNP in each sample:
+bedtools multicov -bams sample1_sorted_MQ1.bam sample2_sorted_MQ1.bam ....... -bed 144SNPs_1bp_FINAL_noheader.bed > SL_mPCR_amplicon_coverage_144SNPs_1bp_ALLsamples.txt
+
 ###Filter bam to only include the target amplicon regions
 bedtools intersect -a sample1_sorted_MQ1.bam -b FullAmplicon_50bpEachSide_144SNPs.bed > sample1_sorted_MQ1_AmpliconOnly.bam
 
