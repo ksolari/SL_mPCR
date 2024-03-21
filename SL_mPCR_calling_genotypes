@@ -23,7 +23,7 @@ bedtools intersect -a sample1_sorted_MQ1.bam -b FullAmplicon_50bpEachSide_144SNP
 ###Calculate the number of reads MQ1_AmpliconOnly bams:
 samtools flagstat sample1_sorted_MQ1_AmpliconOnly.bam
 
-###call SNPs in target SNP location and the bas pair before and after
+###call SNPs in target SNP location and the base pair before and after
 ls *_MQ1.bam > SortedMq1BamList.txt
 bcftools mpileup -A -a AD,DP -R 144SNPs_3bp_FINAL_noheader.bed -f ../../snowleopard-111120.FINAL.DC2.leoY.fasta -b SortedMq1BamList.txt  | bcftools call -m -Oz -o AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_noV_MQ1_144FinalOnly3bp.vcf
 
