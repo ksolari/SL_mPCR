@@ -1,0 +1,20 @@
+###Mapping WGS zoo data to reference genome
+bwa mem -t 4 ../../snowleopard-111120.FINAL.DC2.leoY.fasta Tsering_SL_118009_allData_R1.fastq.gz Tsering_SL_118009_allData_R2.fastq.gz | samtools view -bS - | samtools sort - > Tsering_SL_118009_allData_sorted.bam
+bwa mem -t 4 ../../snowleopard-111120.FINAL.DC2.leoY.fasta Anna_SL_17027_allData_R1.fastq.gz Anna_SL_17027_allData_R2.fastq.gz | samtools view -bS - | samtools sort - > Anna_SL_17027_allData_sorted.bam
+bwa mem -t 4 ../../snowleopard-111120.FINAL.DC2.leoY.fasta Tikka_SL_118001_allData_R1.fastq.gz Tikka_SL_118001_allData_R2.fastq.gz | samtools view -bS - | samtools sort - > Tikka_SL_118001_allData_sorted.bam
+bwa mem -t 4 ../../snowleopard-111120.FINAL.DC2.leoY.fasta 18032FL-121-01-01_S1_L002_R1_001.fastq.gz 18032FL-121-01-01_S1_L002_R2_001.fastq.gz | samtools view -bS - | samtools sort - > Niya_sorted.bam
+bwa mem -t 4 ../../snowleopard-111120.FINAL.DC2.leoY.fasta Raj_SL_117026_WGSlib_S24_L001_R1_001.fastq.gz Raj_SL_117026_WGSlib_S24_L001_R2_001.fastq.gz | samtools view -bS - | samtools sort - > Raj_sorted.bam
+
+samtools index Anna_SL_17027_allData_sorted.bam
+samtools index Niya_sorted.bam
+samtools index Raj_sorted.bam
+samtools index Tikka_SL_118001_allData_sorted.bam
+samtools index Tsering_SL_118009_allData_sorted.bam
+
+###call SNPs in WGS data
+bcftools mpileup -A -a AD,DP -R 144SNPs_3bp_FINAL_noheader.bed -f ../../snowleopard-111120.FINAL.DC2.leoY.fasta -b SFzooBamList_returns.txt  | bcftools call -m -Oz -o SFzoo_WGS_calls_noDepthLimit_AD_DP_144_3bp.vcf
+
+####filter to only 144 target SNPs
+vcftools --vcf SFzoo_WGS_calls_noDepthLimit_AD_DP_144_3bp.vcf --out SFzoo_WGS_calls_noDepthLimit_AD_DP_144_1bp --bed 144SNPs_1bp_FINAL.bed --recode
+
+
