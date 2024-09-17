@@ -3,17 +3,17 @@ ml biology bcftools
 ###zip and index vcf files to be merged
 bgzip -c SL_WGS_n33_AD_DP_144snps_1bp_rename_biallelic_noRelatives.sorted.vcf > SL_WGS_n33_AD_DP_144snps_1bp_rename_biallelic_noRelatives.sorted.vcf.gz
 bgzip -c AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn5_best1perInd_143snps.recode.vcf > AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn5_best1perInd_143snps.recode.vcf.gz
-bgzip -c AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn47_bestRuns_143snps.recode.vcf > AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn47_bestRuns_143snps.recode.vcf.gz
+bgzip -c AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn56_bestRuns_143snps.recode.vcf > AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn56_bestRuns_143snps.recode.vcf.gz
 
 bcftools index -t SL_WGS_n33_AD_DP_144snps_1bp_rename_biallelic_noRelatives.sorted.vcf.gz
 bcftools index -t AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn5_best1perInd_143snps.recode.vcf.gz
-bcftools index -t AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn47_bestRuns_143snps.recode.vcf.gz
+bcftools index -t AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn56_bestRuns_143snps.recode.vcf.gz
 
 ###merge the files and unzip
-vcf-merge SL_WGS_n33_AD_DP_144snps_1bp_rename_biallelic_noRelatives.sorted.vcf.gz AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn5_best1perInd_143snps.recode.vcf.gz AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn47_bestRuns_143snps.recode.vcf.gz | bgzip -c > 143SNP_WGSn33_mPCR_n5_47_merge.vcf.gz
+vcf-merge SL_WGS_n33_AD_DP_144snps_1bp_rename_biallelic_noRelatives.sorted.vcf.gz AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn5_best1perInd_143snps.recode.vcf.gz AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn56_bestRuns_143snps.recode.vcf.gz | bgzip -c > 143SNP_WGSn33_mPCR_n5_56_merge.vcf.gz
 gunzip 143SNP_WGSn33_mPCR_n5_47_merge.vcf.gz 
 
 ###Run PCA analysis with plink
-plink2 --make-bed --vcf 143SNP_WGSn33_mPCR_n5_47_merge.vcf --allow-extra-chr --set-all-var-ids @:# --out 143SNP_WGSn33_mPCR_n5_47_merge
-plink2 --vcf 143SNP_WGSn33_mPCR_n5_47_merge.vcf --freq  --allow-extra-chr --out 143SNP_WGSn33_mPCR_n5_47_merge
-plink2 --bfile 143SNP_WGSn33_mPCR_n5_47_merge --read-freq 143SNP_WGSn33_mPCR_n5_47_merge.afreq --allow-extra-chr --pca 50 --out 143SNP_WGSn33_mPCR_n5_47_merge
+plink2 --make-bed --vcf 143SNP_WGSn33_mPCR_n5_56_merge.vcf --allow-extra-chr --set-all-var-ids @:# --out 143SNP_WGSn33_mPCR_n5_56_merge
+plink2 --vcf 143SNP_WGSn33_mPCR_n5_56_merge.vcf --freq  --allow-extra-chr --out 143SNP_WGSn33_mPCR_n5_56_merge
+plink2 --bfile 143SNP_WGSn33_mPCR_n5_56_merge --read-freq 143SNP_WGSn33_mPCR_n5_56_merge.afreq --allow-extra-chr --pca 50 --out 143SNP_WGSn33_mPCR_n5_56_merge
