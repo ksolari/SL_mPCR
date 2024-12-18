@@ -34,34 +34,34 @@ vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOn
 vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20 --minDP  6 --minGQ 20 --recode
 
 ####split vcf up into sample groups
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604 --keep All_PK_noLongShot_first1uL_n604.txt --recode
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30 --keep AllSF_only2PerSample.txt --recode
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_Nulls_n112 --keep AllNulls_list_final.txt --recode
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_OtherSP_n20 --keep OtherSpecies.txt --recode
+vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out PKSL_n604 --keep All_PK_noLongShot_first1uL_n604.txt --recode
+vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out SFzoo_n30 --keep AllSF_only2PerSample.txt --recode
+vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out Nulls_n112 --keep AllNulls_list_final.txt --recode
+vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20.recode.vcf --out OtherSP_n20 --keep OtherSpecies.txt --recode
 
 ###Calculate the number of SNPs successfully genotyped
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604_missingness --missing-indv
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30_missingness --missing-indv
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_Nulls_n112.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_Nulls_n112_missingness --missing-indv
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_OtherSP_n20.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_OtherSP_n20_missingness --missing-indv
+vcftools --vcf PKSL_n604.recode.vcf --out PKSL_n604_missingness --missing-indv
+vcftools --vcf SFzoo_n30.recode.vcf --out SFzoo_n30_missingness --missing-indv
+vcftools --vcf Nulls_n112.recode.vcf --out Nulls_n112_missingness --missing-indv
+vcftools --vcf OtherSP_n20.recode.vcf --out OtherSP_n20_missingness --missing-indv
 
 ###Calculate allele frequencies within each group
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604_freq --freq
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30_freq --freq
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_Nulls_n112.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_Nulls_n112_freq --freq
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_OtherSP_n20.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_OtherSP_n20_freq --freq
+vcftools --vcf PKSL_n604.recode.vcf --out PKSL_n604_freq --freq
+vcftools --vcf SFzoo_n30.recode.vcf --out SFzoo_n30_freq --freq
+vcftools --vcf Nulls_n112.recode.vcf --out Nulls_n112_freq --freq
+vcftools --vcf OtherSP_n20.recode.vcf --out OtherSP_n20_freq --freq
 
 ###Calculate the heterozygosity of each sample
-bcftools stats AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30.recode.vcf -S AllSF_only2PerSample.txt > SFzoo_het_minDP6minGQ20.txt
-bcftools stats AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604.recode.vcf -S All_PK_noLongShot_first1uL_n604.txt > PK_n604_het_minDP6minGQ20.txt
-bcftools stats AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_Nulls_n112.recode.vcf -S AllNulls_list_final.txt > Null_n112_het_minDP6minGQ20.txt
-bcftools stats AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_OtherSP_n20.recode.vcf -S OtherSpecies.txt > OS_n20_het_minDP6minGQ20.txt
+bcftools stats SFzoo_n30.recode.vcf -S AllSF_only2PerSample.txt > SFzoo_het_minDP6minGQ20.txt
+bcftools stats PKSL_n604.recode.vcf -S All_PK_noLongShot_first1uL_n604.txt > PK_n604_het_minDP6minGQ20.txt
+bcftools stats Nulls_n112.recode.vcf -S AllNulls_list_final.txt > Null_n112_het_minDP6minGQ20.txt
+bcftools stats OtherSP_n20.recode.vcf -S OtherSpecies.txt > OS_n20_het_minDP6minGQ20.txt
 
 ###Remove runs with less than 20 SNPs genotyped
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn604.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn398_min20SNPs --remove PK_runsWless20afterMQ0dp6_GQ20_n211.txt --recode
-vcftools --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn30.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn28_min20SNPs --remove SF_runsWless20afterMQ0dp6_n2.txt --recode
+vcftools --vcf PKSL_n604.recode.vcf --out PKSL_n398_min20SNPs --remove PK_runsWless20afterMQ0dp6_GQ20_n211.txt --recode
+vcftools --vcf SFzoo_n30.recode.vcf --out SFzoo_n28_min20SNPs --remove SF_runsWless20afterMQ0dp6_n2.txt --recode
 
 ###Calculate number of shared alleles between all pairwise comparisons 
 ml biology plink/1.90b5.3
-plink --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn28_min20SNPs.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_SFn28_min20SNPs_minpiHat0_IBS --allow-extra-chr --double-id --genome full 
-plink --vcf AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn398_min20SNPs.recode.vcf --out AllPakistan_AllZoo_calls_noDepthLimit_AD_DP_GQ_noV_MQ1_144FinalOnly1bp_rename_minDP6minGQ20_PKn398_min20SNPs_minpihat0_IBS --allow-extra-chr --double-id --genome full 
+plink --vcf SFzoo_n28_min20SNPs.recode.vcf --out SFzoo_n28_min20SNPs_minpiHat0_IBS --allow-extra-chr --double-id --genome full 
+plink --vcf PKSL_n398_min20SNPs.recode.vcf --out PKSL_n398_min20SNPs_minpihat0_IBS --allow-extra-chr --double-id --genome full 
